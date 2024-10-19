@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FaUser, FaPhone, FaBuilding, FaEnvelope, FaUsers } from 'react-icons/fa'; 
-import { Link, useNavigate } from 'react-router-dom'; 
+import { FaUser, FaPhone, FaBuilding, FaEnvelope, FaUsers } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AUTH_API } from '../constants/api';
 
@@ -12,6 +12,7 @@ const Signup = () => {
     const [companySize, setCompanySize] = useState('');
     const [errors, setErrors] = useState({});
     const [serverError, setServerError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
     const validate = () => {
@@ -28,8 +29,9 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(AUTH_API.LOGIN)
         if (!validate()) return;
+
+        setIsSubmitting(true); 
         try {
             const response = await axios.post(AUTH_API.LOGIN, {
                 username: name,
@@ -39,20 +41,19 @@ const Signup = () => {
                 password: '12345', 
                 companysize: companySize
             });
-           console.log(response);
+            console.log(response);
 
             localStorage.setItem('userInfo', JSON.stringify(response.data));
-
-            // Redirect to verification page
             navigate('/verify'); 
         } catch (error) {
-            console.error('Error during registration:', error);
+            console.error('Error during registration:', error.error);
             if (error.response && error.response.data) {
-                // Handle server-side validation errors
                 setServerError(error.response.data.message || 'An error occurred during registration.');
             } else {
                 setServerError('Network error. Please try again later.');
             }
+        } finally {
+            setIsSubmitting(false); 
         }
     };
 
@@ -159,12 +160,14 @@ const Signup = () => {
                                         Terms & Conditions
                                     </Link>
                                 </p>
-
+                                
+                                {/* Submit Button */}
                                 <button
                                     type="submit"
-                                    className="w-full py-2.5 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                                    className={`w-full py-2.5 text-white rounded-lg ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                                    disabled={isSubmitting}
                                 >
-                                    Proceed
+                                    {isSubmitting ? 'Processing...' : 'Proceed'}
                                 </button>
                             </form>
                         </div>
@@ -174,4 +177,5 @@ const Signup = () => {
         </div>
     );
 };
+
 export default Signup;

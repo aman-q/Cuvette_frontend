@@ -10,7 +10,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userinfo');
+    localStorage.removeItem('userInfo');
     navigate('/');
    // window.location.reload();
   };

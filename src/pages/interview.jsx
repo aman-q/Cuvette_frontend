@@ -23,7 +23,9 @@ const validationSchema = Yup.object().shape({
 
 const InterviewForm = ({ onClose }) => {
   const [candidate, setCandidate] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [token, setToken] = useState('');
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) setToken(storedToken);
@@ -54,14 +56,18 @@ const InterviewForm = ({ onClose }) => {
         recipient: values.candidates,
       };
 
+      setIsSubmitting(true);
+
       try {
         const response = await axios.post(AUTH_API.ADD_JOB, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('Job submitted successfully:', response.data);
+        setIsSubmitting(false);
         onClose();
       } catch (error) {
         console.error('Error submitting job:', error.response?.data || error.message);
+        setIsSubmitting(false);
       }
     },
   });
@@ -216,22 +222,17 @@ const InterviewForm = ({ onClose }) => {
         </div>
 
         {/* Submit Button */}
-        <div className="grid grid-cols-4 gap-8">
-          <div className="col-span-3">
-            {/* Other content here */}
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="w-24 h-12 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            >
-              Submit
-            </button>
-          </div>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`w-24 h-12 bg-blue-500 text-white rounded-md hover:bg-blue-600 ${isSubmitting && 'opacity-50 cursor-not-allowed'}`}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </button>
         </div>
       </form>
     </div>
   );
 };
-
 export default InterviewForm;
