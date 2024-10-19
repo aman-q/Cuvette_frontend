@@ -126,7 +126,7 @@ const SignUpPage2 = () => {
                 type="number"
                 id="mobile"
                 className={`mt-1 block w-full border border-gray-300 rounded-md p-2 pl-10 pr-10 focus:ring-blue-500 focus:border-blue-500 ${isVerifiedMobile ? 'border-green-500' : ''}`}
-                placeholder="Mobile OTP"
+                placeholder="Mobile OTP (Last 4 Digits)!"
                 value={mobileOtp}
                 onChange={(e) => setMobileOtp(e.target.value)}
               />
