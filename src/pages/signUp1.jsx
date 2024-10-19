@@ -28,6 +28,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(AUTH_API.LOGIN)
         if (!validate()) return;
         try {
             const response = await axios.post(AUTH_API.LOGIN, {
@@ -38,7 +39,7 @@ const Signup = () => {
                 password: '12345', 
                 companysize: companySize
             });
-           // console.log(response);
+           console.log(response);
 
             localStorage.setItem('userInfo', JSON.stringify(response.data));
 

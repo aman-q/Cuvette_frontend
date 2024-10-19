@@ -58,7 +58,7 @@ const InterviewForm = ({ onClose }) => {
         const response = await axios.post(AUTH_API.ADD_JOB, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
-       // console.log('Job submitted successfully:', response.data);
+        console.log('Job submitted successfully:', response.data);
         onClose();
       } catch (error) {
         console.error('Error submitting job:', error.response?.data || error.message);
@@ -98,9 +98,8 @@ const InterviewForm = ({ onClose }) => {
               value={formik.values.jobTitle}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full h-12 px-4 py-2 border rounded-md ${
-                formik.touched.jobTitle && formik.errors.jobTitle ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full h-12 px-4 py-2 border rounded-md ${formik.touched.jobTitle && formik.errors.jobTitle ? 'border-red-500' : 'border-gray-300'
+                }`}
             />
             {formik.touched.jobTitle && formik.errors.jobTitle && (
               <div className="text-red-500">{formik.errors.jobTitle}</div>
@@ -118,9 +117,8 @@ const InterviewForm = ({ onClose }) => {
               value={formik.values.jobDescription}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full min-h-[200px] px-4 py-3 border rounded-md ${
-                formik.touched.jobDescription && formik.errors.jobDescription ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full min-h-[200px] px-4 py-3 border rounded-md ${formik.touched.jobDescription && formik.errors.jobDescription ? 'border-red-500' : 'border-gray-300'
+                }`}
             />
             {formik.touched.jobDescription && formik.errors.jobDescription && (
               <div className="text-red-500">{formik.errors.jobDescription}</div>
@@ -137,9 +135,8 @@ const InterviewForm = ({ onClose }) => {
               value={formik.values.experienceLevel}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full h-12 px-4 py-2 border rounded-md ${
-                formik.touched.experienceLevel && formik.errors.experienceLevel ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full h-12 px-4 py-2 border rounded-md ${formik.touched.experienceLevel && formik.errors.experienceLevel ? 'border-red-500' : 'border-gray-300'
+                }`}
             >
               <option value="" disabled>Select Experience Level</option>
               <option value="Internship">Internship</option>
@@ -209,9 +206,8 @@ const InterviewForm = ({ onClose }) => {
               value={formik.values.endDate}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={`w-full h-12 px-4 py-2 border rounded-md ${
-                formik.touched.endDate && formik.errors.endDate ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full h-12 px-4 py-2 border rounded-md ${formik.touched.endDate && formik.errors.endDate ? 'border-red-500' : 'border-gray-300'
+                }`}
             />
             {formik.touched.endDate && formik.errors.endDate && (
               <div className="text-red-500">{formik.errors.endDate}</div>
@@ -222,8 +218,14 @@ const InterviewForm = ({ onClose }) => {
         {/* Submit Button */}
         <div className="grid grid-cols-4 gap-8">
           <div className="col-span-3">
-            <button type="submit" className="w-full h-12 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-              Submit Interview
+            {/* Other content here */}
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="w-24 h-12 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
+              Submit
             </button>
           </div>
         </div>

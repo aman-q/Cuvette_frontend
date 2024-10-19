@@ -1,4 +1,5 @@
-const BASE_URL = process.env.REACT_APP_SERVER_URL;
+const BASE_URL = 'https://cuvette-backend-aj0h.onrender.com/api';
+console.log("BASE_URL:", BASE_URL);
 
 export const AUTH_API = {
     LOGIN: `${BASE_URL}/auth/register`,

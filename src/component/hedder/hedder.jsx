@@ -6,7 +6,7 @@ const Header = () => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo')); 
   const token = localStorage.getItem('token'); 
 
-  const username = userInfo.Company.username
+  const username = userInfo?.Company?.username
 
   const handleLogout = () => {
     localStorage.removeItem('token');
